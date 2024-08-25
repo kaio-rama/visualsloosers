@@ -1,4 +1,3 @@
-# hydra
 # Generador de Visuales
 
 ## Introducción
@@ -21,3 +20,23 @@ Esta aplicación permite generar visuales interactivos y aplicar transformacione
 function mandelbrot(x, y, zoom) {
     // Código aquí
 }
+
+
+FAQs
+
+¿Cómo se puede ajustar la resolución? Ajusta el tamaño del lienzo en el archivo script.js.
+
+¿Puedo guardar mis visuales? Sí, puedes usar la opción de exportar en la interfaz.
+
+markdown
+
+
+### Paso 4: Pruebas y Despliegue
+
+1. **Pruebas**: Asegúrate de probar todas las funcionalidades en diferentes navegadores y dispositivos.
+2. **Despliegue**: Sube los cambios a tu repositorio de GitHub y verifica que GitHub Pages esté configurado correctamente.
+
+Con estos pasos, deberías estar en camino para crear una aplicación web efectiva y un manual de uso útil para tus usuarios. ¿Te gustaría profundizar en algún paso en particular?
+
+Dijiste:
+
