@@ -1,12 +1,16 @@
 const canvas = document.getElementById('visual-canvas');
 const gl = canvas.getContext('webgl');
+const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
+    mode: 'javascript',
+    lineNumbers: true,
+    theme: 'default'
+});
 
 if (!gl) {
     alert('WebGL no está soportado en este navegador.');
     throw new Error('WebGL no está soportado en este navegador.');
 }
 
-// Vertex shader básico
 const vertexShaderSource = `
     attribute vec4 position;
     void main() {
@@ -14,9 +18,8 @@ const vertexShaderSource = `
     }
 `;
 
-// Fragment shader inicial
 let fragmentShaderSource = `
-    precision mediump float;  // Declarar precisión por defecto para float
+    precision mediump float;
     uniform float time;
     uniform vec2 resolution;
     
@@ -52,7 +55,6 @@ function createProgram(gl, vertexShader, fragmentShader) {
     return program;
 }
 
-// Crear y compilar shaders
 const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 let program = createProgram(gl, vertexShader, fragmentShader);
@@ -82,7 +84,7 @@ function render(time) {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.useProgram(program);  // Activar el programa actual aquí
+    gl.useProgram(program);
     gl.enableVertexAttribArray(positionAttributeLocation);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -99,18 +101,17 @@ function render(time) {
 requestAnimationFrame(render);
 
 document.getElementById('run-code').addEventListener('click', () => {
-    const userCode = document.getElementById('code-editor').value;
-
-    const newFragmentShader = createShader(gl, gl.FRAGMENT_SHADER, `precision mediump float; ${userCode}`);
+    const userCode = codeEditor.getValue();
+    const newFragmentShaderSource = `precision mediump float; ${userCode}`;
+    const newFragmentShader = createShader(gl, gl.FRAGMENT_SHADER, newFragmentShaderSource);
+    
     if (newFragmentShader) {
         const newProgram = createProgram(gl, vertexShader, newFragmentShader);
         if (newProgram) {
-            // Activar el nuevo programa antes de cambiar el uniforme
-            gl.useProgram(newProgram);  
-            gl.deleteProgram(program);  // Borrar el programa anterior
+            gl.useProgram(newProgram);
+            gl.deleteProgram(program);
             program = newProgram;
 
-            // Actualizar las ubicaciones de los uniformes
             resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
             timeUniformLocation = gl.getUniformLocation(program, 'time');
         } else {
