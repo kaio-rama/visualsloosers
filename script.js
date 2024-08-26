@@ -82,7 +82,7 @@ function render(time) {
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.useProgram(program);
+    gl.useProgram(program);  // Activar el programa actual aquí
     gl.enableVertexAttribArray(positionAttributeLocation);
 
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -105,8 +105,13 @@ document.getElementById('run-code').addEventListener('click', () => {
     if (newFragmentShader) {
         const newProgram = createProgram(gl, vertexShader, newFragmentShader);
         if (newProgram) {
+            gl.useProgram(newProgram);  // Activar el nuevo programa inmediatamente
             gl.deleteProgram(program);  // Borrar el programa anterior
             program = newProgram;
+
+            // Actualizar las ubicaciones de los uniformes
+            resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
+            timeUniformLocation = gl.getUniformLocation(program, 'time');
         } else {
             console.error('Error al crear el nuevo programa. Manteniendo el programa anterior.');
         }
@@ -114,3 +119,4 @@ document.getElementById('run-code').addEventListener('click', () => {
         console.error('Error en el fragment shader. Manteniendo el shader anterior.');
     }
 });
+
