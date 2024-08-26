@@ -1,14 +1,49 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
+    margin: 0;
+    padding: 0;
     background-color: #f0f0f0;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#editor-container {
+    margin: 20px 0;
+}
+
+#code-editor {
+    width: 100%;
+    height: 150px;
+    font-family: monospace;
+    font-size: 14px;
 }
 
 #canvas-container {
-    margin: 20px auto;
-    width: 80%;
+    margin: 20px 0;
 }
 
 canvas {
     border: 1px solid #ccc;
+}
+
+#controls {
+    margin: 20px 0;
+}
+
+#controls label {
+    margin-right: 10px;
+}
+
+#controls input[type="range"] {
+    width: 100px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
 }
