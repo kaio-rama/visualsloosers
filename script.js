@@ -16,7 +16,7 @@ const vertexShaderSource = `
 
 // Fragment shader inicial
 let fragmentShaderSource = `
-    precision mediump float;
+    precision mediump float;  // Declarar precisión por defecto para float
     uniform float time;
     uniform vec2 resolution;
     
@@ -62,8 +62,8 @@ if (!program) {
 }
 
 const positionAttributeLocation = gl.getAttribLocation(program, 'position');
-const resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
-const timeUniformLocation = gl.getUniformLocation(program, 'time');
+let resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
+let timeUniformLocation = gl.getUniformLocation(program, 'time');
 
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
@@ -101,7 +101,7 @@ requestAnimationFrame(render);
 document.getElementById('run-code').addEventListener('click', () => {
     const userCode = document.getElementById('code-editor').value;
 
-    const newFragmentShader = createShader(gl, gl.FRAGMENT_SHADER, userCode);
+    const newFragmentShader = createShader(gl, gl.FRAGMENT_SHADER, `precision mediump float; ${userCode}`);
     if (newFragmentShader) {
         const newProgram = createProgram(gl, vertexShader, newFragmentShader);
         if (newProgram) {
