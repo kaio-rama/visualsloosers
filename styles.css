@@ -2,10 +2,10 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
 #editor-container {
@@ -45,4 +45,5 @@ body, html {
     height: 100%;
     background-color: black;
 }
+
 
