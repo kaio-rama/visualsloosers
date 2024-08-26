@@ -105,7 +105,8 @@ document.getElementById('run-code').addEventListener('click', () => {
     if (newFragmentShader) {
         const newProgram = createProgram(gl, vertexShader, newFragmentShader);
         if (newProgram) {
-            gl.useProgram(newProgram);  // Activar el nuevo programa inmediatamente
+            // Activar el nuevo programa antes de cambiar el uniforme
+            gl.useProgram(newProgram);  
             gl.deleteProgram(program);  // Borrar el programa anterior
             program = newProgram;
 
