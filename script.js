@@ -1,28 +1,27 @@
-let sketch = (p) => {
-    let code = '';
+let p5Instance;
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('visual-canvas');
-        p.noLoop();
-    };
+function setup() {
+  const canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent('visual-canvas');
+  noLoop(); // Evita que se ejecute continuamente hasta que se pulse el botón.
+  background(0);
+}
 
-    p.draw = () => {
-        p.background(0);
-        try {
-            eval(code);
-        } catch (err) {
-            console.error(err);
-        }
-    };
+function draw() {
+  // Dejar el canvas en negro hasta que se ejecute el código
+  background(0);
+}
 
-    document.getElementById('run-code').addEventListener('click', () => {
-        code = document.getElementById('code-editor').value;
-        p.loop();
-        p.draw();
-        p.noLoop();
-    });
-};
+document.getElementById('run-code').addEventListener('click', () => {
+  const code = document.getElementById('code-editor').value;
+  runUserCode(code);
+});
 
-new p5(sketch);
-
+function runUserCode(userCode) {
+  clear(); // Limpiamos el canvas antes de ejecutar nuevo código
+  try {
+    eval(userCode); // Evalúa y ejecuta el código ingresado por el usuario
+  } catch (error) {
+    console.error("Error en el código del usuario: ", error);
+  }
+}
