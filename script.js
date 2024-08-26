@@ -2,7 +2,8 @@ const canvas = document.getElementById('visual-canvas');
 const gl = canvas.getContext('webgl');
 
 if (!gl) {
-    console.error('WebGL no está soportado en este navegador.');
+    alert('WebGL no está soportado en este navegador.');
+    throw new Error('WebGL no está soportado en este navegador.');
 }
 
 // Vertex shader básico
@@ -56,6 +57,10 @@ const vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderSource);
 let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderSource);
 let program = createProgram(gl, vertexShader, fragmentShader);
 
+if (!program) {
+    throw new Error('Error al crear el programa WebGL.');
+}
+
 const positionAttributeLocation = gl.getAttribLocation(program, 'position');
 const resolutionUniformLocation = gl.getUniformLocation(program, 'resolution');
 const timeUniformLocation = gl.getUniformLocation(program, 'time');
@@ -98,10 +103,14 @@ document.getElementById('run-code').addEventListener('click', () => {
 
     const newFragmentShader = createShader(gl, gl.FRAGMENT_SHADER, userCode);
     if (newFragmentShader) {
-        gl.deleteProgram(program);
-        program = createProgram(gl, vertexShader, newFragmentShader);
+        const newProgram = createProgram(gl, vertexShader, newFragmentShader);
+        if (newProgram) {
+            gl.deleteProgram(program);  // Borrar el programa anterior
+            program = newProgram;
+        } else {
+            console.error('Error al crear el nuevo programa. Manteniendo el programa anterior.');
+        }
+    } else {
+        console.error('Error en el fragment shader. Manteniendo el shader anterior.');
     }
 });
-
-
-
