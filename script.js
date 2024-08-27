@@ -11,6 +11,15 @@ if (!gl) {
     throw new Error('WebGL no está soportado en este navegador.');
 }
 
+// Ajustar canvas al tamaño de la ventana
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight - document.getElementById('editor-container').offsetHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
 const vertexShaderSource = `
     attribute vec4 position;
     void main() {
@@ -121,4 +130,3 @@ document.getElementById('run-code').addEventListener('click', () => {
         console.error('Error en el fragment shader. Manteniendo el shader anterior.');
     }
 });
-

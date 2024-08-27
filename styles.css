@@ -1,34 +1,36 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    overflow: hidden; /* Ocultar barras de desplazamiento */
+    background-color: #303030;
 }
 
 #container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
+    height: 100vh; /* Hacer que el contenedor ocupe toda la altura de la ventana */
 }
 
 #visual-canvas {
-    flex: 1;
     width: 100%;
-    background-color: black;
+    
 }
 
 #editor-container {
     height: 200px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para distinguir el área del editor */
+    
 }
 
 .CodeMirror {
     height: 100%;
-    border: 1px solid #ccc;
+    border: none; /* Eliminar borde del editor */
+    
 }
 
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
+    margin: 10px;
 }
-
-
-
