@@ -5,6 +5,8 @@ body {
     background-color: #303030;
 }
 
+
+
 #container {
     height: 100vh; /* Hacer que el contenedor ocupe toda la altura de la ventana */
 }
@@ -15,7 +17,7 @@ body {
 }
 
 #editor-container {
-    height: 200px;
+    height: 160px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para distinguir el área del editor */
@@ -23,14 +25,38 @@ body {
 }
 
 .CodeMirror {
-    height: 100%;
-    border: none; /* Eliminar borde del editor */
+    background-color: #27252525 !important; /* Fondo del editor */
+    color: #61dafb !important; /* Color del texto */
+    font-family: 'Courier New', Courier, monospace; /* Fuente */
+    font-size: 16px; /* Tamaño de fuente */
     
 }
+
+.CodeMirror-gutters {
+    background-color: #27252525 !important; /* Fondo de los números de línea */
+    border-right: 1px solid #aaa !important; /* Borde del gutter */
+}
+
+.CodeMirror-linenumber {
+    color: #aaa; /* Color de los números de línea */
+}
+
+.CodeMirror-cursor {
+    border-left: 2px solid #61dafb !important; /* Color y estilo del cursor */
+}
+
+.CodeMirror-selected {
+    background-color: #3e4451 !important; /* Color de fondo de selección */
+}
+
 
 button {
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
     margin: 10px;
+    background-color: #27252525 !important; /* Fondo del editor */
+    color: #61dafb !important; /* Color del texto */
+    font-family: 'Courier New', Courier, monospace; /* Fuente */
+    font-size: 16px; /* Tamaño de fuente */
 }

@@ -7,15 +7,19 @@
     <link rel="stylesheet" href="styles.css">
     <!-- Include CodeMirror CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/theme/monokai.min.css">
+
 </head>
 <body>
     
     <div id="container">
-
-        <div id="editor-container">
-            <textarea id="code-editor"></textarea>
+        <div id="og-container">
+            <div id="editor-container">
+                <textarea id="code-editor"></textarea>
+            </div>
+            <button id="run-code">Run code</button>
         </div>
-        <button id="run-code">Run</button>
+
         <canvas id="visual-canvas" ></canvas>
       
     
