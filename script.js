@@ -130,6 +130,3 @@ document.getElementById('run-code').addEventListener('click', () => {
         console.error('Error en el fragment shader. Manteniendo el shader anterior.');
     }
 });
-
-
-window.alert("Este editor utiliza p5.js: una librería de JavaScript que facilita la creación de gráficos y visuales. Consulta el manual a traves de este Link")
