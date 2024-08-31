@@ -1,3 +1,4 @@
+
 const canvas = document.getElementById('visual-canvas');
 const gl = canvas.getContext('webgl');
 const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
@@ -109,6 +110,7 @@ function render(time) {
 
 requestAnimationFrame(render);
 
+// Boton RUN CODE
 document.getElementById('run-code').addEventListener('click', () => {
     const userCode = codeEditor.getValue();
     const newFragmentShaderSource = `precision mediump float; ${userCode}`;
@@ -130,3 +132,117 @@ document.getElementById('run-code').addEventListener('click', () => {
         console.error('Error en el fragment shader. Manteniendo el shader anterior.');
     }
 });
+
+// Boton CLEAR CODE
+document.getElementById('clear-code').addEventListener('click' , () => {
+    codeEditor.setValue(''); 
+
+})
+
+// Boton RANDOM CODE
+document.getElementById('random-code').addEventListener('click', ()=>{
+    codeEditor.setValue(randomCodes[Math.floor(Math.random()*randomCodes.length)])
+})
+
+
+// Random codes
+let random_01 = `
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution;
+    vec3 color = 0.5 + 0.5 * cos(time + uv.xyx * vec3(1.0, 1.0, 1.0));
+    gl_FragColor = vec4(color, 1.0);
+}
+`
+let random_02 = `
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    vec2 distortedUV = uv + 0.1 * vec2(sin(time + uv.y * 10.0), cos(time + uv.x * 10.0));
+    gl_FragColor = vec4(vec3(distortedUV.x, distortedUV.y, 0.5), 1.0);
+}
+`
+
+let random_03 = `
+uniform float time;
+
+void main() {
+    vec2 u_resolution = vec2(800.0, 600.0);
+    vec2 p = (gl_FragCoord.xy - u_resolution * 0.5) / min(u_resolution.y, u_resolution.x);
+    float d = length(p);
+    float color = 0.5 + 0.5 * cos(20.0 * d - time * 5.0);
+    gl_FragColor = vec4(vec3(color), 1.0);
+}
+`
+
+let random_04 = `
+uniform float time;
+
+float noise(vec2 p) {
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
+void main() {
+    vec2 u_resolution = vec2(800.0, 600.0);
+    vec2 p = gl_FragCoord.xy / u_resolution;
+    float color = noise(p + time * 0.0001);
+    gl_FragColor = vec4(vec3(color), 1.0);
+}
+`
+
+let random_05 = `
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution;
+    vec3 color = vec3(0.105 + 1.5 * cos(time + uv.xyx * 2.0 + vec3(1, 2, 14)));
+    gl_FragColor = vec4(color, 1.0);
+}
+`
+
+let random_06 =`
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy - resolution.xy * 0.5) / resolution.y;
+    float dist = length(uv);
+    float angle = atan(uv.y, uv.x) + time;
+    float radius = dist * sin(time * 2.0);
+    vec2 pos = radius * vec2(cos(angle), sin(angle));
+    gl_FragColor = vec4(0.5 + 0.5 * sin(time + pos.x * 10.0),
+                        0.5 + 0.5 * cos(time + pos.y * 10.0),
+                        0.5 + 0.5 * sin(time + dist * 20.0),
+                        1.0);
+}
+`
+
+let random_07 = `
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    vec2 mirroredUV = abs(uv - 0.5) * 2.0;
+    gl_FragColor = vec4(mirroredUV, 0.5 + 0.5 * sin(time), 1.0);
+}` 
+
+let random_08 = `
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution.xy;
+    float r = mod(time + uv.x * 50.0, 1.0);
+    float g = mod(time + uv.y * 50.0, 1.0);
+    float b = mod(time + (uv.x + uv.y) * 25.0, 1.0);
+    gl_FragColor = vec4(r, g, b, 1.0);
+}
+`
+
+let randomCodes = [random_01, random_02, random_03, random_04, random_05, random_06, random_07, random_08]
