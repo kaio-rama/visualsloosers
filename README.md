@@ -1,10 +1,43 @@
 # Generador de Visuales
 https://kaio-rama.github.io/visualsloosers/
 
+### Para crear código de shaders que funcione en tu aplicación, los usuarios deben conocer los siguientes parámetros e información clave:
+
+1. **Uniformes Disponibles**:
+   - `time`: Un valor flotante que representa el tiempo en segundos desde que comenzó la ejecución. Útil para animaciones.
+   - `resolution`: Un vector de dos componentes (`vec2`) que representa el tamaño del canvas en píxeles. Se usa para normalizar coordenadas y adaptar el visual a la resolución de la pantalla.
+
+2. **Coordenadas**:
+   - `gl_FragCoord.xy`: Coordenadas del fragmento actual en el espacio de pantalla. Combinadas con `resolution`, permiten crear efectos basados en la posición.
+
+3. **Tipos de Datos GLSL**:
+   - **Vec2**: Vector de dos componentes (ej. `vec2(1.0, 0.0)`).
+   - **Vec3**: Vector de tres componentes, común para colores RGB (ej. `vec3(1.0, 0.0, 0.0)`).
+   - **Vec4**: Vector de cuatro componentes, incluyendo alfa (ej. `vec4(1.0, 0.0, 0.0, 1.0)`).
+
+4. **Funciones Comunes**:
+   - `sin()`, `cos()`: Funciones trigonométricas útiles para crear patrones ondulados.
+   - `length(vec2)`: Calcula la distancia desde el origen, útil para efectos radiales.
+
+5. **Estructura del Shader**:
+   - El shader debe contener un `main()` que calcula el color de cada píxel (`gl_FragColor`).
+
+### Ejemplo Básico:
+```glsl
+uniform float time;
+uniform vec2 resolution;
+
+void main() {
+    vec2 uv = gl_FragCoord.xy / resolution;  // Normaliza las coordenadas
+    vec3 color = 0.5 + 0.5 * cos(time + uv.xyx * vec3(1.0, 1.0, 1.0));  // Color animado
+    gl_FragColor = vec4(color, 1.0);  // Asigna el color al fragmento
+}
+```
+
+Este código genera un gradiente de color animado. El usuario puede modificar el cálculo de `uv` y `color` para crear diferentes visuales.
+
 Funciones Básicas del Generador de Visuales
 1. Función Principal en el Fragment Shader
-
-glsl
 
 void main() {
     vec2 uv = gl_FragCoord.xy / resolution;
@@ -18,6 +51,7 @@ void main() {
     uv: Coordenadas normalizadas del fragmento (de 0 a 1).
     color: Color calculado usando una función matemática.
     gl_FragColor: Color final del fragmento.
+
 
 Funciones y Parámetros Usables en el Código
 1. Uniformes
@@ -41,54 +75,6 @@ En el fragment shader, puedes usar varias funciones matemáticas para crear efec
     mix(x, y, a): Interpolación lineal entre x y y usando a como el factor de mezcla.
     smoothstep(edge0, edge1, x): Función de interpolación suave entre 0 y 1 en el intervalo [edge0, edge1].
 
-3. Ejemplos de Código para el Editor
-
-Puedes escribir fragment shaders en el editor de código para generar diferentes efectos visuales. Aquí algunos ejemplos básicos:
-
-    Colores Cambiantes:
-
-    glsl
-
-precision mediump float;
-uniform float time;
-uniform vec2 resolution;
-
-void main() {
-    vec2 uv = gl_FragCoord.xy / resolution;
-    vec3 color = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0, 2, 4));
-    gl_FragColor = vec4(color, 1.0);
-}
-
-Efecto de Ondas:
-
-glsl
-
-precision mediump float;
-uniform float time;
-uniform vec2 resolution;
-
-void main() {
-    vec2 uv = gl_FragCoord.xy / resolution;
-    float wave = sin(10.0 * uv.y + time);
-    vec3 color = vec3(uv.x, wave, 1.0 - uv.y);
-    gl_FragColor = vec4(color, 1.0);
-}
-
-Gradiente Radial:
-
-glsl
-
-    precision mediump float;
-    uniform float time;
-    uniform vec2 resolution;
-
-    void main() {
-        vec2 uv = gl_FragCoord.xy / resolution;
-        float dist = length(uv - vec2(0.5));
-        vec3 color = vec3(1.0, 0.5 + 0.5 * cos(time), 1.0 - dist);
-        gl_FragColor = vec4(color, 1.0);
-    }
-
 Cómo Utilizar estas Funciones
 
     Modificar el Fragment Shader:
@@ -103,20 +89,3 @@ Consideraciones Adicionales
 
     Errores en el Shader: Si el código GLSL contiene errores, el shader puede no compilar correctamente. Asegúrate de que el código no tenga errores de sintaxis.
     Performance: Los cálculos complejos pueden afectar el rendimiento, especialmente en dispositivos con menos potencia de procesamiento.
-
-
-
-
-FAQs
-
-¿Cómo se puede ajustar la resolución? Ajusta el tamaño del lienzo en el archivo script.js.
-
-¿Puedo guardar mis visuales? Sí, puedes usar la opción de exportar en la interfaz.
-
-markdown
-
-
-### Paso 4: Pruebas y Despliegue
-
-1. **Pruebas**: Asegúrate de probar todas las funcionalidades en diferentes navegadores y dispositivos.
-2. **Despliegue**: Sube los cambios a tu repositorio de GitHub y verifica que GitHub Pages esté configurado correctamente.
