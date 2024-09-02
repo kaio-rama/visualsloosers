@@ -16,9 +16,36 @@
             <div id="editor-container">
                 <textarea id="code-editor"></textarea>
             </div>
+            <button id="openModalBtn" class="styled-button">Manual ES/EN</button>
             <button id="random-code">Random</button>
-            <button id="clear-code">Clear code</button>
-            <button id="run-code">Run code</button>
+            <button id="clear-code">Borrar todo</button>
+            <button id="run-code">Ejecutar código</button>
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <h2 style="margin-bottom: 5px;">Visual Loosers</h2>
+                    <h3 style="font-size: 16px; margin-top: 0;">by kaio-rama</h3>
+                    <p>Es un entorno de ejecución de código GLSL.
+                        Para comenzar a Modificar el Fragment Shader:
+                        Escribe tu código en el área del editor. Usa las variables uniformes (resolution, time) y funciones matemáticas para crear efectos visuales.
+                    
+                    Interacción con el Código:
+                        Ejecutar código: Compila y aplica el código del fragment shader escrito en el editor al canvas.
+                        Puedes ajustar el código en tiempo real y ver los cambios directamente en el canvas.
+                        Si el código GLSL contiene errores, el shader puede no compilar correctamente.</p>
+                        -------------------
+                    <p>It is a GLSL code execution environment.
+
+                        To start Modifying the Fragment Shader: Write your code in the editor area. 
+                        Use uniform variables (resolution, time) and mathematical functions to create visual effects. 
+                        Interaction with Code: Execute code: Compiles and applies the fragment shader code written in the editor to
+                         the canvas. You can adjust the code in real time and see the changes directly on the canvas. If the GLSL
+                          code contains errors, the shader may not compile correctly.
+                    </p>
+                    <p> Manual ES/EN: <a href="https://github.com/kaio-rama/visualsloosers#generador-de-visuales" target="_blank">https://github.com/kaio-rama/visualsloosers#generador-de-visuales</a></p>
+                    <button class="close-btn" id="closeModalBtn">Cerrar</button>
+                </div>
+            </div>
+            
             </div>
 
         <canvas id="visual-canvas" ></canvas>
