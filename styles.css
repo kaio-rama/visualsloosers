@@ -5,7 +5,9 @@ body {
     background-color: #303030;
 }
 
-
+a{
+    color: red;
+}
 
 #container {
     height: 100vh; /* Hacer que el contenedor ocupe toda la altura de la ventana */
@@ -93,4 +95,11 @@ button {
     cursor: pointer;
     border-radius: 5px;
     margin-top: 15px;
+} 
+
+@media screen {
+    button{
+        font-size: 14px;
+        padding: 8px 14px;
+    }
 }
