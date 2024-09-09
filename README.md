@@ -39,28 +39,30 @@ Este código genera un gradiente de color animado. El usuario puede modificar el
 Funciones Básicas del Generador de Visuales
 1. Función Principal en el Fragment Shader
 
+```glsl
 void main() {
     vec2 uv = gl_FragCoord.xy / resolution;
     vec3 color = 0.5 + 0.5 * cos(time + uv.xyx + vec3(0, 2, 4));
     gl_FragColor = vec4(color, 1.0);
 }
-
-    gl_FragCoord: Proporciona las coordenadas del fragmento actual en la ventana.
-    resolution: Uniforme que indica la resolución del canvas (ancho y alto).
-    time: Uniforme que indica el tiempo en segundos desde que se inició la animación.
-    uv: Coordenadas normalizadas del fragmento (de 0 a 1).
-    color: Color calculado usando una función matemática.
-    gl_FragColor: Color final del fragmento.
+```
+   * gl_FragCoord: Proporciona las coordenadas del fragmento actual en la ventana.
+   * resolution: Uniforme que indica la resolución del canvas (ancho y alto).
+   * time: Uniforme que indica el tiempo en segundos desde que se inició la animación.
+   * uv: Coordenadas normalizadas del fragmento (de 0 a 1).
+   * color: Color calculado usando una función matemática.
+   * gl_FragColor: Color final del fragmento.
 
 
 Funciones y Parámetros Usables en el Código
 1. Uniformes
 
-    uniform vec2 resolution;:
+
+####uniform vec2 resolution;
         Descripción: La resolución del canvas (ancho y alto).
         Uso: Ajusta la resolución en el shader para que los cálculos de coordenadas y colores se adapten al tamaño del canvas.
 
-    uniform float time;:
+####uniform float time;
         Descripción: Tiempo en segundos desde el inicio de la animación.
         Uso: Permite la animación y la creación de efectos dinámicos basados en el tiempo.
 
