@@ -4,7 +4,7 @@ const gl = canvas.getContext('webgl');
 const codeEditor = CodeMirror.fromTextArea(document.getElementById('code-editor'), {
     mode: 'javascript',
     lineNumbers: true,
-    theme: 'default'
+    theme: 'default',
 });
 
 if (!gl) {

@@ -20,6 +20,7 @@ a{
 
 #editor-container {
     height: 160px;
+    max-height: auto;
     display: flex;
     flex-direction: column;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil para distinguir el área del editor */
@@ -97,9 +98,14 @@ button {
     margin-top: 15px;
 } 
 
-@media screen {
+@media (max-width: 700px) {
     button{
         font-size: 14px;
-        padding: 8px 14px;
+        padding: 7px 15px;
+        margin: 5px 3px;
+    }
+    #editor-container {
+        height: 120px;
     }
 }
+
